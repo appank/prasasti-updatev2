@@ -30,7 +30,6 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import DashboardTopbar from '../components/DashboardTopbar';
-import DatabaseSetup from '../components/DatabaseSetup';
 import { SearchIcon } from '@chakra-ui/icons';
 
 const PROJECT_URL = process.env.REACT_APP_SUPABASE_URL || 'https://zltvhxuhxsmamtkvxpul.supabase.co';
