@@ -334,7 +334,7 @@ class SupabaseAPITester:
 
     def run_all_tests(self):
         """Run all backend tests"""
-        print("🚀 Starting Supabase Backend Tests for cek_verifikator PDF Link Feature")
+        print("🚀 Starting Supabase Backend Tests for VerifikatorDashboard Filter Update")
         print("=" * 70)
         
         # Test basic connectivity
@@ -349,12 +349,15 @@ class SupabaseAPITester:
             self.run_test("Verifikator Query Logic", self.test_verifikator_query)
             self.cleanup_test_data()
         
+        # Test the new filter logic specifically
+        self.run_test("Verifikator Query - Ditolak Filter", self.test_verifikator_query_with_ditolak_filter)
+        
         # Print results
         print("\n" + "=" * 70)
         print(f"📊 Backend Test Results: {self.tests_passed}/{self.tests_run} tests passed")
         
         if self.tests_passed == self.tests_run:
-            print("🎉 All backend tests passed! cek_verifikator PDF link feature is working correctly.")
+            print("🎉 All backend tests passed! VerifikatorDashboard filter is working correctly.")
             return 0
         else:
             print("❌ Some backend tests failed. Please check the implementation.")
