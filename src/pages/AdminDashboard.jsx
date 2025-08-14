@@ -162,8 +162,19 @@ const AdminDashboard = () => {
                     </Td>
                     <Td>
                       <Badge colorScheme={submission.cek_verifikator ? 'green' : 'gray'}>
-                        {submission.cek_verifikator ? 'Sudah' : 'Belum'}
+                        {submission.cek_verifikator ? 'Ada PDF' : 'Belum'}
                       </Badge>
+                      {submission.cek_verifikator && (
+                        <ChakraLink 
+                          href={`${PROJECT_URL}/storage/v1/object/public/surat-keterangan/${submission.cek_verifikator}`} 
+                          isExternal 
+                          color="blue.500"
+                          ml={2}
+                          fontSize="sm"
+                        >
+                          Lihat PDF
+                        </ChakraLink>
+                      )}
                     </Td>
                     <Td>
                       {berkasUrl ? (
