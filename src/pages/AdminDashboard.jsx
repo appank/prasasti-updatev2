@@ -184,6 +184,18 @@ const AdminDashboard = () => {
           </Table>
         </Box>
       </Box>
+
+      {/* Modal SQL Editor */}
+      <Modal isOpen={isOpen} onClose={onClose} size="6xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>SQL Editor</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <SQLEditor />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
