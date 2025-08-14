@@ -67,11 +67,11 @@ class SupabaseAPITester:
             return False
 
     def test_table_schema(self):
-        """Test if alasan_tolak column exists in table schema"""
+        """Test if cek_verifikator column exists and accepts TEXT values"""
         try:
-            # Try to select the alasan_tolak column specifically
+            # Try to select the cek_verifikator column specifically
             response = requests.get(
-                f"{self.base_url}/rest/v1/surat_keterangan?select=alasan_tolak&limit=1",
+                f"{self.base_url}/rest/v1/surat_keterangan?select=cek_verifikator&limit=1",
                 headers=self.headers,
                 timeout=10
             )
