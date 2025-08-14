@@ -6,11 +6,15 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import AdminLoginPage from "../pages/AdminLoginPage";
 import AdminRegisterPage from "../pages/AdminRegisterPage";
+import VerifikatorLoginPage from "../pages/VerifikatorLoginPage";
+import VerifikatorRegisterPage from "../pages/VerifikatorRegisterPage";
 import UserProtectedRoute from "../auth/UserProtectedRoute";
 import AdminProtectedRoute from "../auth/AdminProtectedRoute";
+import VerifikatorProtectedRoute from "../auth/VerifikatorProtectedRoute";
 import DashboardLayout from "../components/DashboardLayout";
 import UserDashboard from "../pages/UserDashboard";
 import AdminDashboard from "../pages/AdminDashboard";
+import VerifikatorDashboard from "../pages/VerifikatorDashboard";
 import DemoUserDashboard from "../pages/DemoUserDashboard";
 
 function AllRoutes() {
