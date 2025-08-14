@@ -11,8 +11,8 @@ from datetime import datetime
 
 class SupabaseAPITester:
     def __init__(self):
-        self.base_url = "https://goesszamjyvbyehufxri.supabase.co"
-        self.anon_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvZXNzemFtanl2YnllaHVmeHJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUwODkwMDQsImV4cCI6MjA3MDY2NTAwNH0.SUyeN43XfKs3PvBU0mKNToUl6MSpLn3fLARUuzI_Ci4"
+        self.base_url = "https://htasbqlbhbwxxdfxbved.supabase.co"
+        self.anon_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh0YXNicWxiaGJ3eHhkZnhidmVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxNDIzOTgsImV4cCI6MjA3MDcxODM5OH0.xukRBZXjN0A7p-4ven1Gk-KK_AwfQAAPkvSz0CNtVho"
         self.headers = {
             'apikey': self.anon_key,
             'Authorization': f'Bearer {self.anon_key}',
