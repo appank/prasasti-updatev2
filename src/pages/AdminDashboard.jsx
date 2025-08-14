@@ -197,18 +197,6 @@ const AdminDashboard = () => {
           </Table>
         </Box>
       </Box>
-
-      {/* Modal Database Setup */}
-      <Modal isOpen={isOpen} onClose={onClose} size="4xl">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Setup Database</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            <DatabaseSetup />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
     </Box>
   );
 };
