@@ -67,6 +67,8 @@ export default function SuratKeteranganPage() {
   const navigate = useNavigate();
   const [form, setForm] = useState(defaultForm);
   const [loading, setLoading] = useState(Boolean(id));
+  const [alasanTolak, setAlasanTolak] = useState('');
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
   useEffect(() => {
