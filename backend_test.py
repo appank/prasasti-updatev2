@@ -155,16 +155,15 @@ class SupabaseAPITester:
             print(f"Fetch test error: {e}")
             return False
 
-    def test_update_rejection_reason(self):
-        """Test updating rejection reason"""
+    def test_update_pdf_link(self):
+        """Test updating PDF link in cek_verifikator"""
         try:
             if not hasattr(self, 'sample_id'):
                 print("No sample data to update")
                 return False
                 
             update_data = {
-                "status": "Ditolak",
-                "alasan_tolak": "Updated: Berkas foto tidak jelas dan dokumen SKCK sudah expired."
+                "cek_verifikator": "updated-pdf-link-456.pdf"
             }
             
             response = requests.patch(
@@ -175,7 +174,7 @@ class SupabaseAPITester:
             )
             
             if response.status_code in [200, 204]:  # Accept both 200 and 204 as success
-                print("Rejection reason updated successfully")
+                print("PDF link updated successfully")
                 return True
             else:
                 print(f"Update failed with status: {response.status_code}")
