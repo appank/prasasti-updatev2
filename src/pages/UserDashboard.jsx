@@ -889,7 +889,7 @@ const UserDashboard = () => {
 };
 
 // Enhanced Status Display Component
-const StatusDisplay = ({ isApproved, isRejected, handleDownload, berkasUrl, fotoUrl, PROJECT_URL }) => {
+const StatusDisplay = ({ isApproved, isRejected, rejectionReason, handleDownload, berkasUrl, fotoUrl, PROJECT_URL }) => {
   const getStatusInfo = () => {
     if (isApproved) {
       return {
@@ -902,7 +902,7 @@ const StatusDisplay = ({ isApproved, isRejected, handleDownload, berkasUrl, foto
     } else if (isRejected) {
       return {
         title: "Pengajuan Ditolak ❌",
-        description: "Maaf, pengajuan Anda ditolak. Silakan hubungi admin untuk informasi lebih lanjut.",
+        description: "Maaf, pengajuan Anda ditolak. Silakan periksa alasan penolakan di bawah ini.",
         color: "red",
         icon: FaTimesCircle,
         bgGradient: "linear(to-r, red.400, pink.500)",
@@ -961,6 +961,25 @@ const StatusDisplay = ({ isApproved, isRejected, handleDownload, berkasUrl, foto
                 {statusInfo.description}
               </Text>
             </VStack>
+
+            {/* Tampilkan alasan penolakan jika ada */}
+            {isRejected && rejectionReason && (
+              <Box
+                w="full"
+                p={4}
+                bg="red.50"
+                border="1px solid"
+                borderColor="red.200"
+                borderRadius="lg"
+              >
+                <Text fontSize="sm" fontWeight="semibold" color="red.800" mb={2}>
+                  Alasan Penolakan:
+                </Text>
+                <Text fontSize="sm" color="red.700" whiteSpace="pre-wrap">
+                  {rejectionReason}
+                </Text>
+              </Box>
+            )}
 
             {isApproved && (
               <Button
