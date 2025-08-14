@@ -19,10 +19,18 @@ import {
   Spinner,
   Center,
   Link as ChakraLink,
-  Input,          // <── tambahan
-  Flex,           // <── tambahan
+  Input,          
+  Flex,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
 import DashboardTopbar from '../components/DashboardTopbar';
+import SQLEditor from '../components/SQLEditor';
 import { SearchIcon } from '@chakra-ui/icons';
 
 const PROJECT_URL = process.env.REACT_APP_SUPABASE_URL || 'https://zltvhxuhxsmamtkvxpul.supabase.co';
