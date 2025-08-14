@@ -213,6 +213,7 @@ class SupabaseAPITester:
                     return False
             else:
                 print(f"Verifikator query failed with status: {response.status_code}")
+                print(f"Error response: {response.text}")
                 return False
                 
         except Exception as e:
