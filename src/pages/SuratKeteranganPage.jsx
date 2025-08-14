@@ -110,6 +110,7 @@ export default function SuratKeteranganPage() {
 
     setLoading(true);
     let filePath = form.file_url;
+    let updateData = { ...form, status: newStatus, file_url: filePath };
 
     if (newStatus === 'Disetujui') {
       try {
@@ -137,6 +138,7 @@ export default function SuratKeteranganPage() {
 
         if (uploadError) throw uploadError;
         filePath = uploadData.path;
+        updateData.file_url = filePath;
       } catch (err) {
         console.error('Gagal membuat/upload PDF:', err);
         toast({
@@ -151,9 +153,14 @@ export default function SuratKeteranganPage() {
       }
     }
 
+    // Jika status ditolak, tambahkan alasan penolakan
+    if (newStatus === 'Ditolak' && alasanTolak) {
+      updateData.alasan_tolak = alasanTolak;
+    }
+
     const { error: updateError } = await supabase
       .from('surat_keterangan')
-      .update({ ...form, status: newStatus, file_url: filePath })
+      .update(updateData)
       .eq('id', id);
 
     if (updateError) {
@@ -176,6 +183,16 @@ export default function SuratKeteranganPage() {
       navigate('/admin');
     }
     setLoading(false);
+  };
+
+  const handleTolakClick = () => {
+    onOpen();
+  };
+
+  const handleConfirmTolak = () => {
+    onClose();
+    handleUpdate('Ditolak');
+    setAlasanTolak(''); // Reset alasan setelah submit
   };
 
   if (loading && id) {
