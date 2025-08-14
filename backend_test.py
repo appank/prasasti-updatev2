@@ -185,7 +185,35 @@ class SupabaseAPITester:
             print(f"Update test error: {e}")
             return False
 
-    def cleanup_test_data(self):
+    def test_verifikator_query(self):
+        """Test verifikator dashboard query - should only show records with PDF links"""
+        try:
+            # This simulates the query used in VerifikatorDashboard.jsx
+            response = requests.get(
+                f"{self.base_url}/rest/v1/surat_keterangan?select=*&not.cek_verifikator=is.null&neq.status=Disetujui&neq.status=Ditolak oleh Verifikator",
+                headers=self.headers,
+                timeout=10
+            )
+            
+            if response.status_code == 200:
+                data = response.json()
+                print(f"Verifikator query returned {len(data)} records")
+                
+                # Verify all returned records have PDF links
+                all_have_pdf = all(record.get('cek_verifikator') is not None for record in data)
+                if all_have_pdf:
+                    print("✅ All records have PDF links as expected")
+                    return True
+                else:
+                    print("❌ Some records don't have PDF links")
+                    return False
+            else:
+                print(f"Verifikator query failed with status: {response.status_code}")
+                return False
+                
+        except Exception as e:
+            print(f"Verifikator query test error: {e}")
+            return False
         """Clean up test data"""
         try:
             if hasattr(self, 'sample_id'):
