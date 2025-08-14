@@ -40,11 +40,12 @@ User mengajukan → Admin review → Admin setuju → Verifikator review → Fin
 #### A. Login sebagai Admin
 - URL: http://localhost:3000/admin/login
 - Test tombol "Setuju & Kirim" pada pengajuan
-- Pastikan status TIDAK berubah, tapi `cek_verifikator` = true
+- Pastikan status TIDAK berubah, tapi **link PDF tersimpan di `cek_verifikator`**
 
 #### B. Login sebagai Verifikator  
 - URL: http://localhost:3000/verifikator/login
-- Dashboard akan menampilkan data yang sudah disetujui admin
+- Dashboard akan menampilkan data yang memiliki **link PDF di kolom `cek_verifikator`**
+- Kolom "PDF dari Admin" menampilkan link untuk review
 - Test tombol "Setuju & Kirim" dan "Tolak"
 
 ## 📊 STATUS SISTEM
