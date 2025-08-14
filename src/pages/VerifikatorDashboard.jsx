@@ -239,7 +239,7 @@ const VerifikatorDashboard = () => {
                 <Th>Nama</Th>
                 <Th>Status</Th>
                 <Th>Cek Verifikator</Th>
-                <Th>PDF</Th>
+                <Th>PDF dari Admin</Th>
                 <Th>Berkas</Th>
                 <Th>Aksi</Th>
               </Tr>
