@@ -93,11 +93,12 @@ const VerifikatorDashboard = () => {
   const handleSetuju = async (id, submissionData) => {
     setActionLoading(true);
     try {
-      // Update status menjadi "Disetujui" - ini adalah final approval
+      // Update status menjadi "Disetujui" dan pindahkan PDF dari cek_verifikator ke file_url
       const { error: updateError } = await supabase
         .from('surat_keterangan')
         .update({ 
-          status: 'Disetujui'
+          status: 'Disetujui',
+          file_url: submissionData.cek_verifikator // Pindahkan PDF link ke file_url agar user bisa lihat
         })
         .eq('id', id);
 
