@@ -140,6 +140,7 @@ const UserDashboard = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isApproved, setIsApproved] = useState(false);
   const [isRejected, setIsRejected] = useState(false);
+  const [rejectionReason, setRejectionReason] = useState('');
   const [pdfUrl, setPdfUrl] = useState(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
