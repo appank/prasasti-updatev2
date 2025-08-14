@@ -454,6 +454,40 @@ export default function SuratKeteranganPage() {
         )}
       </Box>
     </Flex>
+
+    {/* Modal Dialog untuk Alasan Penolakan */}
+    <Modal isOpen={isOpen} onClose={onClose} size="lg">
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Alasan Penolakan</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <Text mb={4} color="gray.600">
+            Berikan alasan mengapa pengajuan surat keterangan ini ditolak:
+          </Text>
+          <Textarea
+            value={alasanTolak}
+            onChange={(e) => setAlasanTolak(e.target.value)}
+            placeholder="Masukkan alasan penolakan..."
+            rows={6}
+            resize="vertical"
+          />
+        </ModalBody>
+        <ModalFooter>
+          <Button variant="ghost" mr={3} onClick={onClose}>
+            Batal
+          </Button>
+          <Button 
+            colorScheme="red" 
+            onClick={handleConfirmTolak}
+            isDisabled={!alasanTolak.trim()}
+          >
+            Tolak Pengajuan
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+
     </Box>
   );
 }
