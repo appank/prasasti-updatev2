@@ -86,7 +86,7 @@ User mengajukan → Admin review → Admin setuju → Verifikator review → Fin
 1. Buka Supabase Dashboard
 2. SQL Editor → Jalankan:
    ```sql
-   ALTER TABLE surat_keterangan ADD COLUMN IF NOT EXISTS cek_verifikator BOOLEAN DEFAULT FALSE;
+   ALTER TABLE surat_keterangan ADD COLUMN IF NOT EXISTS cek_verifikator TEXT;
    ```
 
 ### Jika Authentication Error:
