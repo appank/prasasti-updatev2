@@ -420,7 +420,7 @@ export default function SuratKeteranganPage() {
             </Button>
             <Button
               colorScheme="red"
-              onClick={() => handleUpdate('Ditolak')}
+              onClick={handleTolakClick}
               isLoading={loading}
             >
               Tolak
