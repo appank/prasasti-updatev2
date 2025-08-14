@@ -152,13 +152,19 @@ const AdminDashboard = () => {
                             ? 'red'
                             : submission.status === 'Disetujui'
                               ? 'green'
-                              : 'yellow' // semua selain di atas akan default kuning
+                              : submission.status === 'Ditolak oleh Verifikator'
+                                ? 'red'
+                                : 'yellow' // semua selain di atas akan default kuning
                         }
                       >
                         {submission.status || 'Menunggu Verifikasi'}
                       </Badge>
                     </Td>
-                    {/*  <Td>{submission.status || 'Menunggu Verifikasi'}</Td> */}
+                    <Td>
+                      <Badge colorScheme={submission.cek_verifikator ? 'green' : 'gray'}>
+                        {submission.cek_verifikator ? 'Sudah' : 'Belum'}
+                      </Badge>
+                    </Td>
                     <Td>
                       {berkasUrl ? (
                         <ChakraLink href={berkasUrl} isExternal color="blue.500">
