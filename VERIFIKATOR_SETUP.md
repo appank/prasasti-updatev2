@@ -28,7 +28,7 @@ User mengajukan → Admin review → Admin setuju → Verifikator review → Fin
 - Login sebagai **Admin**: http://localhost:3000/admin/login
 - Di dashboard admin, klik tombol **"Setup Database"**
 - Klik **"Tambahkan Kolom cek_verifikator"**
-- Kolom `cek_verifikator` akan ditambahkan ke tabel `surat_keterangan`
+- Kolom `cek_verifikator` (TEXT) akan ditambahkan ke tabel `surat_keterangan` untuk menyimpan link PDF
 
 ### 2. Buat Akun Verifikator
 - Kunjungi: http://localhost:3000/verifikator/register
