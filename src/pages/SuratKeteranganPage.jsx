@@ -140,9 +140,9 @@ export default function SuratKeteranganPage() {
         filePath = uploadData.path;
         updateData.file_url = filePath;
 
-        // PENTING: Kirim ke verifikator - jangan ubah status, tapi set cek_verifikator = true
+        // PENTING: Kirim ke verifikator - jangan ubah status, tapi set cek_verifikator = link PDF
         updateData.status = form.status; // Tetap status lama
-        updateData.cek_verifikator = true; // Tandai sudah dikirim ke verifikator
+        updateData.cek_verifikator = filePath; // Simpan link PDF untuk verifikator
       } catch (err) {
         console.error('Gagal membuat/upload PDF:', err);
         toast({
