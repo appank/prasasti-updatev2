@@ -37,8 +37,7 @@ const PROJECT_URL = process.env.REACT_APP_SUPABASE_URL || 'https://zltvhxuhxsmam
 const AdminDashboard = () => {
   const [submissions, setSubmissions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');   
-  const { isOpen, onOpen, onClose } = useDisclosure();  // <── tambahan untuk SQL Editor
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const fetchSubmissions = async () => {
