@@ -29,6 +29,8 @@ function AllRoutes() {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/admin/login" element={<AdminLoginPage />} />
       <Route path="/admin/register" element={<AdminRegisterPage />} />
+      <Route path="/verifikator/login" element={<VerifikatorLoginPage />} />
+      <Route path="/verifikator/register" element={<VerifikatorRegisterPage />} />
 
       {/* User Protected Routes */}
       <Route path="/dashboard" element={<UserProtectedRoute><UserDashboard /></UserProtectedRoute>} />
@@ -55,6 +57,18 @@ function AllRoutes() {
               <SuratKeteranganPage />
             </DashboardLayout>
           </AdminProtectedRoute>
+        }
+      />
+
+      {/* Verifikator Protected Routes */}
+      <Route
+        path="/verifikator"
+        element={
+          <VerifikatorProtectedRoute>
+            <DashboardLayout>
+              <VerifikatorDashboard />
+            </DashboardLayout>
+          </VerifikatorProtectedRoute>
         }
       />
     </Routes>
