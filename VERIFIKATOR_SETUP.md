@@ -17,8 +17,8 @@ User mengajukan → Admin review → Admin setuju → Verifikator review → Fin
 1. **User** mengajukan surat keterangan
 2. **Admin** mereview:
    - Jika TOLAK → Status: "Ditolak" + alasan ke user
-   - Jika SETUJU → PDF dibuat + dikirim ke verifikator (status tetap sama)
-3. **Verifikator** mereview (khusus yang sudah disetujui admin):
+   - Jika SETUJU → PDF dibuat + **link PDF disimpan di `cek_verifikator`** + dikirim ke verifikator (status tetap sama)
+3. **Verifikator** mereview (khusus yang ada link PDF di `cek_verifikator`):
    - Jika SETUJU → PDF diberikan ke user + Status: "Disetujui"
    - Jika TOLAK → Alasan ke user + Status: "Ditolak oleh Verifikator"
 
