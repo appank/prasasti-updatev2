@@ -269,16 +269,20 @@ const VerifikatorDashboard = () => {
                     </Td>
                     <Td>
                       <Badge colorScheme={submission.cek_verifikator ? 'green' : 'gray'}>
-                        {submission.cek_verifikator ? 'Ya' : 'Tidak'}
+                        {submission.cek_verifikator ? 'Ada PDF' : 'Belum'}
                       </Badge>
                     </Td>
                     <Td>
-                      {pdfUrl ? (
-                        <ChakraLink href={pdfUrl} isExternal color="blue.500">
-                          Lihat PDF
+                      {submission.cek_verifikator ? (
+                        <ChakraLink 
+                          href={`${PROJECT_URL}/storage/v1/object/public/surat-keterangan/${submission.cek_verifikator}`} 
+                          isExternal 
+                          color="blue.500"
+                        >
+                          Lihat PDF dari Admin
                         </ChakraLink>
                       ) : (
-                        'Tidak ada'
+                        'Belum ada PDF'
                       )}
                     </Td>
                     <Td>
