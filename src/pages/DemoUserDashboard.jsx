@@ -796,6 +796,25 @@ const StatusDisplay = ({ status }) => {
               </Text>
             </VStack>
 
+            {/* Tampilkan alasan penolakan untuk demo rejected status */}
+            {status === 'rejected' && (
+              <Box
+                w="full"
+                p={4}
+                bg="red.50"
+                border="1px solid"
+                borderColor="red.200"
+                borderRadius="lg"
+              >
+                <Text fontSize="sm" fontWeight="semibold" color="red.800" mb={2}>
+                  Alasan Penolakan:
+                </Text>
+                <Text fontSize="sm" color="red.700" whiteSpace="pre-wrap">
+                  Dokumen tidak lengkap. Harap melengkapi berkas KTP dan SKCK yang masih berlaku serta pastikan foto yang diupload jelas dan tidak buram.
+                </Text>
+              </Box>
+            )}
+
             {status === 'approved' && (
               <Button
                 colorScheme="green"
