@@ -185,13 +185,113 @@ class SupabaseAPITester:
             print(f"Update test error: {e}")
             return False
 
+    def test_verifikator_query_with_ditolak_filter(self):
+        """Test verifikator dashboard query - should exclude documents with status 'Ditolak'"""
+        try:
+            # First, create test data with different statuses including "Ditolak"
+            test_records = []
+            
+            # Create a record with status "Ditolak" (should be filtered out)
+            ditolak_data = {
+                "nama": "Test User Ditolak",
+                "nik": "1234567890123457",
+                "tempat_lahir": "Jakarta",
+                "tanggal_lahir": "1990-01-01",
+                "jenis_kelamin": "Laki-laki",
+                "pendidikan": "S1 (Sarjana)",
+                "pekerjaan": "Software Developer",
+                "alamat_sesuai_ktp": "Jl. Test No. 123, Jakarta",
+                "alamat_domisili": "Jl. Test No. 123, Jakarta",
+                "alasan_permohonan": "Untuk keperluan melamar pekerjaan",
+                "status": "Ditolak",  # This should be filtered out
+                "cek_verifikator": "test-pdf-ditolak.pdf",
+                "tanggal_permohonan": datetime.now().strftime("%Y-%m-%d")
+            }
+            
+            # Create a record with status "Menunggu Verifikasi" (should be included)
+            menunggu_data = {
+                "nama": "Test User Menunggu",
+                "nik": "1234567890123458",
+                "tempat_lahir": "Jakarta",
+                "tanggal_lahir": "1990-01-01",
+                "jenis_kelamin": "Laki-laki",
+                "pendidikan": "S1 (Sarjana)",
+                "pekerjaan": "Software Developer",
+                "alamat_sesuai_ktp": "Jl. Test No. 123, Jakarta",
+                "alamat_domisili": "Jl. Test No. 123, Jakarta",
+                "alasan_permohonan": "Untuk keperluan melamar pekerjaan",
+                "status": "Menunggu Verifikasi",  # This should be included
+                "cek_verifikator": "test-pdf-menunggu.pdf",
+                "tanggal_permohonan": datetime.now().strftime("%Y-%m-%d")
+            }
+            
+            # Insert test records
+            for data in [ditolak_data, menunggu_data]:
+                response = requests.post(
+                    f"{self.base_url}/rest/v1/surat_keterangan",
+                    headers=self.headers,
+                    json=data,
+                    timeout=10
+                )
+                if response.status_code == 201:
+                    test_records.append(response.json()[0]['id'])
+                    print(f"Created test record with status: {data['status']}")
+            
+            # Now test the verifikator query with the new filter
+            # This simulates the exact query used in VerifikatorDashboard.jsx line 57-63
+            response = requests.get(
+                f"{self.base_url}/rest/v1/surat_keterangan?select=*&cek_verifikator=not.is.null&status=not.eq.Disetujui&status=not.eq.Ditolak%20oleh%20Verifikator&status=not.eq.Ditolak",
+                headers=self.headers,
+                timeout=10
+            )
+            
+            if response.status_code == 200:
+                data = response.json()
+                print(f"Verifikator query returned {len(data)} records")
+                
+                # Check that no records with status "Ditolak" are returned
+                ditolak_records = [record for record in data if record.get('status') == 'Ditolak']
+                if len(ditolak_records) == 0:
+                    print("✅ No records with status 'Ditolak' found - filter working correctly")
+                    
+                    # Verify records with other statuses are still returned
+                    menunggu_records = [record for record in data if record.get('status') == 'Menunggu Verifikasi']
+                    if len(menunggu_records) > 0:
+                        print("✅ Records with 'Menunggu Verifikasi' status are still included")
+                        return True
+                    else:
+                        print("⚠️ No 'Menunggu Verifikasi' records found, but filter is working")
+                        return True
+                else:
+                    print(f"❌ Found {len(ditolak_records)} records with status 'Ditolak' - filter not working")
+                    return False
+            else:
+                print(f"Verifikator query failed with status: {response.status_code}")
+                print(f"Error response: {response.text}")
+                return False
+                
+        except Exception as e:
+            print(f"Verifikator query test error: {e}")
+            return False
+        finally:
+            # Cleanup test records
+            for record_id in test_records:
+                try:
+                    requests.delete(
+                        f"{self.base_url}/rest/v1/surat_keterangan?id=eq.{record_id}",
+                        headers=self.headers,
+                        timeout=10
+                    )
+                except:
+                    pass
+
     def test_verifikator_query(self):
         """Test verifikator dashboard query - should only show records with PDF links"""
         try:
             # This simulates the query used in VerifikatorDashboard.jsx
             # Use proper PostgREST syntax for multiple conditions
             response = requests.get(
-                f"{self.base_url}/rest/v1/surat_keterangan?select=*&cek_verifikator=not.is.null&status=not.eq.Disetujui&status=not.eq.Ditolak%20oleh%20Verifikator",
+                f"{self.base_url}/rest/v1/surat_keterangan?select=*&cek_verifikator=not.is.null&status=not.eq.Disetujui&status=not.eq.Ditolak%20oleh%20Verifikator&status=not.eq.Ditolak",
                 headers=self.headers,
                 timeout=10
             )
