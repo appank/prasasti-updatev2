@@ -59,8 +59,8 @@ User mengajukan → Admin review → Admin setuju → Verifikator review → Fin
 ### Dashboard Verifikator Menampilkan:
 - Nama
 - Status  
-- Cek Verifikator (Ya/Belum)
-- Link PDF
+- Cek Verifikator (Ada PDF/Belum)
+- **PDF dari Admin** (Link untuk review)
 - Link Berkas Pendukung
 - Tombol Aksi (Setuju & Kirim / Tolak)
 
