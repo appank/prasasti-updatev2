@@ -180,7 +180,7 @@ const UserDashboard = () => {
     const fetchSubmissionStatus = async () => {
       const { data, error } = await supabase
         .from('surat_keterangan')
-        .select('status, file_url, berkas_url, foto_url')
+        .select('status, file_url, berkas_url, foto_url, alasan_tolak')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
@@ -198,6 +198,7 @@ const UserDashboard = () => {
         }
         if (latest.status === 'Ditolak') {
           setIsRejected(true);
+          setRejectionReason(latest.alasan_tolak || '');
         }
       }
       setLoading(false);
