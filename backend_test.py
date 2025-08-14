@@ -214,6 +214,7 @@ class SupabaseAPITester:
         except Exception as e:
             print(f"Verifikator query test error: {e}")
             return False
+    def cleanup_test_data(self):
         """Clean up test data"""
         try:
             if hasattr(self, 'sample_id'):
@@ -231,26 +232,27 @@ class SupabaseAPITester:
 
     def run_all_tests(self):
         """Run all backend tests"""
-        print("🚀 Starting Supabase Backend Tests for Rejection Reason Feature")
-        print("=" * 60)
+        print("🚀 Starting Supabase Backend Tests for cek_verifikator PDF Link Feature")
+        print("=" * 70)
         
         # Test basic connectivity
         self.run_test("Supabase Connection", self.test_supabase_connection)
         self.run_test("Table Access", self.test_surat_keterangan_table_access)
-        self.run_test("Table Schema (alasan_tolak column)", self.test_table_schema)
+        self.run_test("Table Schema (cek_verifikator column)", self.test_table_schema)
         
-        # Test CRUD operations for rejection reasons
-        if self.run_test("Insert Sample Data with Rejection", self.test_insert_sample_data):
-            self.run_test("Fetch Rejection Reason", self.test_fetch_rejection_reason)
-            self.run_test("Update Rejection Reason", self.test_update_rejection_reason)
+        # Test CRUD operations for PDF links
+        if self.run_test("Insert Sample Data with PDF Link", self.test_insert_sample_data):
+            self.run_test("Fetch PDF Link", self.test_fetch_pdf_link)
+            self.run_test("Update PDF Link", self.test_update_pdf_link)
+            self.run_test("Verifikator Query Logic", self.test_verifikator_query)
             self.cleanup_test_data()
         
         # Print results
-        print("\n" + "=" * 60)
+        print("\n" + "=" * 70)
         print(f"📊 Backend Test Results: {self.tests_passed}/{self.tests_run} tests passed")
         
         if self.tests_passed == self.tests_run:
-            print("🎉 All backend tests passed! Rejection reason feature is working correctly.")
+            print("🎉 All backend tests passed! cek_verifikator PDF link feature is working correctly.")
             return 0
         else:
             print("❌ Some backend tests failed. Please check the implementation.")
