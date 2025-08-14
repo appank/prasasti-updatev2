@@ -21,13 +21,6 @@ import {
   Link as ChakraLink,
   Input,          
   Flex,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
 } from '@chakra-ui/react';
 import DashboardTopbar from '../components/DashboardTopbar';
 import { SearchIcon } from '@chakra-ui/icons';
