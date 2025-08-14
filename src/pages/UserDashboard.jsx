@@ -875,6 +875,7 @@ const UserDashboard = () => {
             <StatusDisplay 
               isApproved={isApproved}
               isRejected={isRejected}
+              rejectionReason={rejectionReason}
               handleDownload={handleDownload}
               berkasUrl={berkasUrl}
               fotoUrl={fotoUrl}
