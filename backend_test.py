@@ -82,7 +82,7 @@ class SupabaseAPITester:
             return False
 
     def test_insert_sample_data(self):
-        """Test inserting sample data with rejection reason"""
+        """Test inserting sample data with PDF link in cek_verifikator"""
         try:
             sample_data = {
                 "nama": "Test User",
@@ -95,8 +95,8 @@ class SupabaseAPITester:
                 "alamat_sesuai_ktp": "Jl. Test No. 123, Jakarta",
                 "alamat_domisili": "Jl. Test No. 123, Jakarta",
                 "alasan_permohonan": "Untuk keperluan melamar pekerjaan",
-                "status": "Ditolak",
-                "alasan_tolak": "Dokumen tidak lengkap. Harap melengkapi berkas KTP dan SKCK.",
+                "status": "Menunggu Verifikasi",
+                "cek_verifikator": "test-pdf-link-123.pdf",  # PDF link instead of boolean
                 "tanggal_permohonan": datetime.now().strftime("%Y-%m-%d")
             }
             
