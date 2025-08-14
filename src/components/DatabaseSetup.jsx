@@ -21,10 +21,10 @@ const DatabaseSetup = () => {
   const addCekVerifikatorColumn = async () => {
     setLoading(true);
     try {
-      // Coba tambahkan kolom menggunakan SQL raw query
+      // Coba tambahkan kolom menggunakan SQL raw query - ubah ke TEXT untuk menyimpan link PDF
       const { data, error } = await supabase
         .rpc('sql', {
-          query: 'ALTER TABLE surat_keterangan ADD COLUMN IF NOT EXISTS cek_verifikator BOOLEAN DEFAULT FALSE;'
+          query: 'ALTER TABLE surat_keterangan ADD COLUMN IF NOT EXISTS cek_verifikator TEXT;'
         });
 
       if (error) {
@@ -34,7 +34,7 @@ const DatabaseSetup = () => {
         // Alternatif: Coba update langsung dengan supabase client
         const { error: updateError } = await supabase
           .from('surat_keterangan')
-          .update({ cek_verifikator: false })
+          .update({ cek_verifikator: null })
           .eq('id', 999999); // ID yang tidak ada, hanya untuk trigger kolom
 
         if (updateError && !updateError.message.includes('No rows updated')) {
