@@ -87,7 +87,7 @@ const DatabaseSetup = () => {
           <Box>
             <AlertTitle>Kolom Database Diperlukan</AlertTitle>
             <AlertDescription>
-              Untuk fitur verifikator berfungsi, perlu menambahkan kolom <Code>cek_verifikator</Code> ke tabel <Code>surat_keterangan</Code>.
+              Untuk fitur verifikator berfungsi, perlu menambahkan kolom <Code>cek_verifikator</Code> (TEXT) ke tabel <Code>surat_keterangan</Code> untuk menyimpan link PDF.
             </AlertDescription>
           </Box>
         </Alert>
@@ -95,7 +95,7 @@ const DatabaseSetup = () => {
         <Box p={4} bg="gray.50" borderRadius="md">
           <Text fontSize="sm" color="gray.600" mb={2}>SQL yang akan dijalankan:</Text>
           <Code display="block" p={2}>
-            ALTER TABLE surat_keterangan ADD COLUMN IF NOT EXISTS cek_verifikator BOOLEAN DEFAULT FALSE;
+            ALTER TABLE surat_keterangan ADD COLUMN IF NOT EXISTS cek_verifikator TEXT;
           </Code>
         </Box>
 
