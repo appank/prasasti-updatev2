@@ -125,7 +125,7 @@ export default function SuratKeteranganPage() {
           if (data?.signedUrl) signedFotoUrl = data.signedUrl;
         }
 
-        // Kirim foto_url yang sudah signed ke komponen PDF
+        // Generate PDF
         const blob = await pdf(
           <SuratKeteranganPDF data={{ ...form, foto_url: signedFotoUrl }} />
         ).toBlob();
@@ -139,6 +139,10 @@ export default function SuratKeteranganPage() {
         if (uploadError) throw uploadError;
         filePath = uploadData.path;
         updateData.file_url = filePath;
+
+        // PENTING: Kirim ke verifikator - jangan ubah status, tapi set cek_verifikator = true
+        updateData.status = form.status; // Tetap status lama
+        updateData.cek_verifikator = true; // Tandai sudah dikirim ke verifikator
       } catch (err) {
         console.error('Gagal membuat/upload PDF:', err);
         toast({
@@ -173,9 +177,13 @@ export default function SuratKeteranganPage() {
         isClosable: true,
       });
     } else {
+      const successMessage = newStatus === 'Disetujui' 
+        ? 'PDF berhasil dibuat dan dikirim ke verifikator.' 
+        : `Status diperbarui menjadi '${newStatus}'.`;
+      
       toast({
         title: 'Berhasil',
-        description: `Status diperbarui menjadi '${newStatus}'.`,
+        description: successMessage,
         status: 'success',
         duration: 3000,
         isClosable: true,
