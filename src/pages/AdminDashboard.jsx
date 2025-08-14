@@ -112,7 +112,10 @@ const AdminDashboard = () => {
         >
 
           {/* ===== INPUT PENCARIAN ===== */}
-          <Flex mb={4} justify="flex-end" align="center">
+          <Flex mb={4} justify="space-between" align="center">
+            <Button onClick={onOpen} colorScheme="purple" size="sm">
+              SQL Editor
+            </Button>
             <InputGroup maxW="300px">
               <InputLeftElement pointerEvents="none">
                 <SearchIcon color="gray.400" />
