@@ -189,8 +189,12 @@ class SupabaseAPITester:
         """Test verifikator dashboard query - should only show records with PDF links"""
         try:
             # This simulates the query used in VerifikatorDashboard.jsx
+            # URL encode the status values properly
+            import urllib.parse
+            status_ditolak_verifikator = urllib.parse.quote("Ditolak oleh Verifikator")
+            
             response = requests.get(
-                f"{self.base_url}/rest/v1/surat_keterangan?select=*&not.cek_verifikator=is.null&neq.status=Disetujui&neq.status=Ditolak oleh Verifikator",
+                f"{self.base_url}/rest/v1/surat_keterangan?select=*&not.cek_verifikator=is.null&neq.status=Disetujui&neq.status={status_ditolak_verifikator}",
                 headers=self.headers,
                 timeout=10
             )
