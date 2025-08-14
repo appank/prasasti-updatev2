@@ -120,15 +120,15 @@ class SupabaseAPITester:
             print(f"Insert test error: {e}")
             return False
 
-    def test_fetch_rejection_reason(self):
-        """Test fetching rejection reason from database"""
+    def test_fetch_pdf_link(self):
+        """Test fetching PDF link from cek_verifikator column"""
         try:
             if not hasattr(self, 'sample_id'):
                 print("No sample data to fetch")
                 return False
                 
             response = requests.get(
-                f"{self.base_url}/rest/v1/surat_keterangan?id=eq.{self.sample_id}&select=status,alasan_tolak",
+                f"{self.base_url}/rest/v1/surat_keterangan?id=eq.{self.sample_id}&select=status,cek_verifikator",
                 headers=self.headers,
                 timeout=10
             )
@@ -137,12 +137,12 @@ class SupabaseAPITester:
                 data = response.json()
                 if data and len(data) > 0:
                     record = data[0]
-                    has_rejection = record.get('status') == 'Ditolak' and record.get('alasan_tolak')
-                    if has_rejection:
-                        print(f"Found rejection reason: {record.get('alasan_tolak')}")
+                    has_pdf_link = record.get('cek_verifikator') is not None
+                    if has_pdf_link:
+                        print(f"Found PDF link: {record.get('cek_verifikator')}")
                         return True
                     else:
-                        print("No rejection reason found")
+                        print("No PDF link found")
                         return False
                 else:
                     print("No data returned")
