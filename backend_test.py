@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Backend Test for Surat Keterangan System
-Testing Supabase integration and rejection reason functionality
+Testing Supabase integration and cek_verifikator PDF link functionality
 """
 
 import requests
