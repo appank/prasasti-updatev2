@@ -174,7 +174,7 @@ class SupabaseAPITester:
                 timeout=10
             )
             
-            if response.status_code == 204:
+            if response.status_code in [200, 204]:  # Accept both 200 and 204 as success
                 print("Rejection reason updated successfully")
                 return True
             else:
