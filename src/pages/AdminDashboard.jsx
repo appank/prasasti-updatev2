@@ -21,6 +21,15 @@ import {
   Link as ChakraLink,
   Input,          
   Flex,
+  Text,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
 import DashboardTopbar from '../components/DashboardTopbar';
 import { SearchIcon } from '@chakra-ui/icons';
@@ -31,6 +40,8 @@ const AdminDashboard = () => {
   const [submissions, setSubmissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [selectedAlasanTolak, setSelectedAlasanTolak] = useState('');
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     const fetchSubmissions = async () => {
@@ -60,6 +71,11 @@ const AdminDashboard = () => {
   const generateBerkasUrl = (path) => {
     if (!path) return null;
     return `${PROJECT_URL}/storage/v1/object/public/berkas-pendukung/${path}`;
+  };
+
+  const handleLihatAlasanTolak = (alasanTolak) => {
+    setSelectedAlasanTolak(alasanTolak);
+    onOpen();
   };
 
   if (loading) {
@@ -123,6 +139,7 @@ const AdminDashboard = () => {
                 <Th>Status</Th>
                 <Th>Cek Verifikator</Th>
                 <Th>Berkas</Th>
+                <Th>Alasan Penolakan</Th>
                 <Th>Aksi</Th>
               </Tr>
             </Thead>
@@ -174,6 +191,20 @@ const AdminDashboard = () => {
                       )}
                     </Td>
                     <Td>
+                      {submission.status === 'Ditolak oleh Verifikator' && submission.alasan_tolak ? (
+                        <Button
+                          size="sm"
+                          colorScheme="orange"
+                          variant="outline"
+                          onClick={() => handleLihatAlasanTolak(submission.alasan_tolak)}
+                        >
+                          Lihat Alasan
+                        </Button>
+                      ) : (
+                        <Text fontSize="sm" color="gray.500">-</Text>
+                      )}
+                    </Td>
+                    <Td>
                       <Button
                         as={Link}
                         to={`/admin/surat-keterangan/${submission.id}`}
@@ -190,6 +221,27 @@ const AdminDashboard = () => {
           </Table>
         </Box>
       </Box>
+
+      {/* Modal untuk Menampilkan Alasan Penolakan */}
+      <Modal isOpen={isOpen} onClose={onClose} size="lg">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Alasan Penolakan oleh Verifikator</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Box p={4} bg="red.50" borderRadius="md" border="1px solid" borderColor="red.200">
+              <Text color="red.800" whiteSpace="pre-wrap">
+                {selectedAlasanTolak}
+              </Text>
+            </Box>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" onClick={onClose}>
+              Tutup
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };

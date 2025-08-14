@@ -6,12 +6,12 @@ import {
   Input,
   InputGroup,
   Text,
-  InputLeftAddon,        // <— untuk “startAddon”
+  InputLeftAddon,        // <— untuk "startAddon"
   InputRightAddon,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbSeparator,      // <— kalau ingin “endAddon”
+  BreadcrumbSeparator,      // <— kalau ingin "endAddon"
   VStack,
   Heading,
   Button,
@@ -25,7 +25,11 @@ import {
   ModalBody,
   ModalFooter,
   ModalCloseButton,
-  useDisclosure
+  useDisclosure,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from '@chakra-ui/react';
 import { PDFDownloadLink, pdf } from '@react-pdf/renderer';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -140,9 +144,17 @@ export default function SuratKeteranganPage() {
         filePath = uploadData.path;
         updateData.file_url = filePath;
 
-        // PENTING: Kirim ke verifikator - jangan ubah status, tapi set cek_verifikator = link PDF
-        updateData.status = form.status; // Tetap status lama
-        updateData.cek_verifikator = filePath; // Simpan link PDF untuk verifikator
+        // Cek apakah ini adalah pengiriman ulang setelah ditolak verifikator
+        if (form.status === 'Ditolak oleh Verifikator') {
+          // Jika sebelumnya ditolak verifikator, kirim ulang ke verifikator
+          updateData.status = 'Menunggu Verifikasi'; // Ubah status ke menunggu verifikasi (warna kuning)
+          updateData.cek_verifikator = filePath; // Update dengan PDF baru
+          updateData.alasan_tolak = null; // Clear alasan penolakan sebelumnya
+        } else {
+          // Pengiriman normal ke verifikator pertama kali
+          updateData.status = form.status; // Tetap status lama
+          updateData.cek_verifikator = filePath; // Simpan link PDF untuk verifikator
+        }
       } catch (err) {
         console.error('Gagal membuat/upload PDF:', err);
         toast({
@@ -177,9 +189,16 @@ export default function SuratKeteranganPage() {
         isClosable: true,
       });
     } else {
-      const successMessage = newStatus === 'Disetujui' 
-        ? 'PDF berhasil dibuat dan dikirim ke verifikator.' 
-        : `Status diperbarui menjadi '${newStatus}'.`;
+      let successMessage = '';
+      if (newStatus === 'Disetujui') {
+        if (form.status === 'Ditolak oleh Verifikator') {
+          successMessage = 'PDF berhasil diperbarui dan dikirim ulang ke verifikator untuk verifikasi.';
+        } else {
+          successMessage = 'PDF berhasil dibuat dan dikirim ke verifikator.';
+        }
+      } else {
+        successMessage = `Status diperbarui menjadi '${newStatus}'.`;
+      }
       
       toast({
         title: 'Berhasil',
@@ -225,6 +244,23 @@ export default function SuratKeteranganPage() {
           </BreadcrumbItem>
         </Breadcrumb>
       </Box>
+
+      {/* Alert untuk menampilkan alasan penolakan jika ada */}
+      {form.status === 'Ditolak oleh Verifikator' && form.alasan_tolak && (
+        <Box p={5}>
+          <Alert status="error" borderRadius="md">
+            <AlertIcon />
+            <Box>
+              <AlertTitle>Ditolak oleh Verifikator!</AlertTitle>
+              <AlertDescription>
+                <strong>Alasan penolakan:</strong><br />
+                {form.alasan_tolak}
+              </AlertDescription>
+            </Box>
+          </Alert>
+        </Box>
+      )}
+
       <Flex direction={{ base: 'column', md: 'row' }} gap={8} p={5}>
         {/* === FORM INPUT === */}
         <Box flex={1} boxShadow="lg" p={5} borderRadius="md" bg="gray.50">
@@ -424,7 +460,7 @@ export default function SuratKeteranganPage() {
               onClick={() => handleUpdate('Disetujui')}
               isLoading={loading}
             >
-              Setujui & Kirim
+              {form.status === 'Ditolak oleh Verifikator' ? 'Setujui & Kirim Lagi' : 'Setujui & Kirim'}
             </Button>
             <Button
               colorScheme="red"
