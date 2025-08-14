@@ -52,12 +52,12 @@ const VerifikatorDashboard = () => {
 
   useEffect(() => {
     const fetchSubmissions = async () => {
-      // Ambil data yang sudah di-approve admin (cek_verifikator = true) 
+      // Ambil data yang sudah di-approve admin (cek_verifikator berisi link PDF) 
       // tapi belum diproses verifikator
       const { data, error } = await supabase
         .from('surat_keterangan')
         .select('*')
-        .eq('cek_verifikator', true)
+        .not('cek_verifikator', 'is', null)
         .neq('status', 'Disetujui')
         .neq('status', 'Ditolak oleh Verifikator');
 
