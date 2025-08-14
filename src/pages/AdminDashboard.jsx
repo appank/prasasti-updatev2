@@ -133,6 +133,7 @@ const AdminDashboard = () => {
                 <Th>ID</Th>
                 <Th>Nama</Th>
                 <Th>Status</Th>
+                <Th>Cek Verifikator</Th>
                 <Th>Berkas</Th>
                 <Th>Aksi</Th>
               </Tr>
