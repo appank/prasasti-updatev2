@@ -109,11 +109,8 @@ const AdminDashboard = () => {
           p={4}   // <── bayangan di sekeliling tabel
         >
 
-          {/* ===== INPUT PENCARIAN ===== */}
-          <Flex mb={4} justify="space-between" align="center">
-            <Button onClick={onOpen} colorScheme="purple" size="sm">
-              Setup Database
-            </Button>
+          {/* Input Pencarian */}
+          <Flex mb={4} justify="flex-end" align="center">
             <InputGroup maxW="300px">
               <InputLeftElement pointerEvents="none">
                 <SearchIcon color="gray.400" />
